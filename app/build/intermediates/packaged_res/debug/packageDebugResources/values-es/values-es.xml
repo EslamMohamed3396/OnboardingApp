@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OnboardingApp</string>
+    <string name="button_back">Atrás</string>
+    <string name="button_get_started">Comenzar</string>
+    <string name="button_next">Siguiente</string>
+    <string name="button_skip">Omitir</string>
+    <string name="home_description">Explora la aplicaciÃ³n y descubre todas las caracterÃ­sticas que hemos preparado para ti.</string>
+    <string name="home_enter_email">Ingresa tu correo electrÃ³nico</string>
+    <string name="home_enter_name">Ingresa tu nombre</string>
+    <string name="home_information_saved">Â¡InformaciÃ³n guardada exitosamente!</string>
+    <string name="home_save">Guardar InformaciÃ³n</string>
+    <string name="home_subtitle">Has completado exitosamente la introducciÃ³n.</string>
+    <string name="home_title">Â¡Bienvenido!</string>
+    <string name="home_user_info">InformaciÃ³n del Usuario</string>
+    <string name="onboarding_description_1">Descubre caracterÃ­sticas increÃ­bles y aprovecha al mÃ¡ximo tu experiencia con nuestra aplicaciÃ³n.</string>
+    <string name="onboarding_description_2">Nuestra interfaz intuitiva hace que la navegaciÃ³n sea simple y agradable para todos.</string>
+    <string name="onboarding_description_3">Ãšnete a miles de usuarios que ya estÃ¡n disfrutando de nuestras increÃ­bles caracterÃ­sticas.</string>
+    <string name="onboarding_title_1">Bienvenido a OnboardingApp</string>
+    <string name="onboarding_title_2">FÃ¡cil de Usar</string>
+    <string name="onboarding_title_3">Comenzar</string>
+</resources>

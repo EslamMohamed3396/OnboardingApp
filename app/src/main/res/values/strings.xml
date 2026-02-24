@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OnboardingApp</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Welcome to OnboardingApp</string>
+    <string name="onboarding_description_1">Discover amazing features and make the most of your experience with our app.</string>
+    <string name="onboarding_title_2">Easy to Use</string>
+    <string name="onboarding_description_2">Our intuitive interface makes navigation simple and enjoyable for everyone.</string>
+    <string name="onboarding_title_3">Get Started</string>
+    <string name="onboarding_description_3">Join thousands of users who are already enjoying our amazing features.</string>
+    
+    <!-- Buttons -->
+    <string name="button_back">Back</string>
+    <string name="button_next">Next</string>
+    <string name="button_get_started">Get Started</string>
+    <string name="button_skip">Skip</string>
+    
+    <!-- Home -->
+    <string name="home_title">Welcome!</string>
+    <string name="home_subtitle">You have successfully completed the onboarding.</string>
+    <string name="home_description">Explore the app and discover all the features we have prepared for you.</string>
+    <string name="home_user_info">User Information</string>
+    <string name="home_enter_name">Enter your name</string>
+    <string name="home_enter_email">Enter your email</string>
+    <string name="home_save">Save Information</string>
+    <string name="home_information_saved">Information saved successfully!</string>
+</resources>
