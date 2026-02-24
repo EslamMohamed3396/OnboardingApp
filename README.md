@@ -2,6 +2,12 @@
 
 A modern Android application demonstrating Clean Architecture principles with Jetpack Compose, Kotlin, and DataStore for persistence.
 
+## Download
+
+[![Download APK](https://img.shields.io/badge/Download-v1.0.0-blue?style=for-the-badge&logo=android)](https://github.com/EslamMohamed3396/OnboardingApp/releases/download/v1.0.0/onboarding-app-debug.apk)
+
+Get the latest APK from the [Releases](https://github.com/EslamMohamed3396/OnboardingApp/releases) page.
+
 ## Features
 
 - **Clean Architecture**: Separation of concerns with domain, data, and presentation layers

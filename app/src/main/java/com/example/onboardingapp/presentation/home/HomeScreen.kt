@@ -96,19 +96,7 @@ fun HomeScreen(
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                TextButton(
-                    onClick = {  },
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(16.dp)
-                ) {
-                    Text(
-                        text = "Skip",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
+
                 AsyncImage(
                     model = R.drawable.ai_avatar,
                     contentDescription = "AI Tutor Avatar",

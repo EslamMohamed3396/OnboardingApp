@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -55,6 +56,18 @@ fun OnboardingScreen(
     }
 
     Box {
+        TextButton(
+            onClick = {
+                viewModel.skipOnboarding()
+                onOnboardingCompleted()
+            },
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(top = 32.dp)
+        ) {
+            Text(text = stringResource(id = R.string.button_skip))
+        }
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier

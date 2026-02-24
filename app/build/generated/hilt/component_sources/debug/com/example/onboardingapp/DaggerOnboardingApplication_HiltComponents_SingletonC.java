@@ -13,13 +13,11 @@ import com.example.onboardingapp.di.RepositoryModule;
 import com.example.onboardingapp.di.RepositoryModule_ProvideUserRepositoryFactory;
 import com.example.onboardingapp.di.UseCaseModule;
 import com.example.onboardingapp.di.UseCaseModule_ProvideIsOnboardingCompletedUseCaseFactory;
-import com.example.onboardingapp.di.UseCaseModule_ProvideSaveUserCountryUseCaseFactory;
 import com.example.onboardingapp.di.UseCaseModule_ProvideSaveUserNameAndCountryUseCaseFactory;
 import com.example.onboardingapp.di.UseCaseModule_ProvideSaveUserNameUseCaseFactory;
 import com.example.onboardingapp.di.UseCaseModule_ProvideSetOnboardingCompletedUseCaseFactory;
 import com.example.onboardingapp.domain.repository.UserRepository;
 import com.example.onboardingapp.domain.usecase.IsOnboardingCompletedUseCase;
-import com.example.onboardingapp.domain.usecase.SaveUserCountryUseCase;
 import com.example.onboardingapp.domain.usecase.SaveUserNameAndCountryUseCase;
 import com.example.onboardingapp.domain.usecase.SaveUserNameUseCase;
 import com.example.onboardingapp.domain.usecase.SetOnboardingCompletedUseCase;
@@ -490,7 +488,7 @@ public final class DaggerOnboardingApplication_HiltComponents_SingletonC {
       public T get() {
         switch (id) {
           case 0: // com.example.onboardingapp.presentation.home.HomeViewModel 
-          return (T) new HomeViewModel(singletonCImpl.provideSaveUserNameUseCaseProvider.get(), singletonCImpl.provideSaveUserCountryUseCaseProvider.get(), singletonCImpl.provideSaveUserNameAndCountryUseCaseProvider.get());
+          return (T) new HomeViewModel(singletonCImpl.provideSaveUserNameUseCaseProvider.get(), singletonCImpl.provideSaveUserNameAndCountryUseCaseProvider.get());
 
           case 1: // com.example.onboardingapp.presentation.onboarding.OnboardingViewModel 
           return (T) new OnboardingViewModel(singletonCImpl.provideSetOnboardingCompletedUseCaseProvider.get());
@@ -583,8 +581,6 @@ public final class DaggerOnboardingApplication_HiltComponents_SingletonC {
 
     private Provider<SaveUserNameUseCase> provideSaveUserNameUseCaseProvider;
 
-    private Provider<SaveUserCountryUseCase> provideSaveUserCountryUseCaseProvider;
-
     private Provider<SaveUserNameAndCountryUseCase> provideSaveUserNameAndCountryUseCaseProvider;
 
     private Provider<SetOnboardingCompletedUseCase> provideSetOnboardingCompletedUseCaseProvider;
@@ -602,10 +598,9 @@ public final class DaggerOnboardingApplication_HiltComponents_SingletonC {
       this.provideUserDataStoreProvider = DoubleCheck.provider(new SwitchingProvider<UserDataStore>(singletonCImpl, 2));
       this.provideUserRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<UserRepository>(singletonCImpl, 1));
       this.provideSaveUserNameUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<SaveUserNameUseCase>(singletonCImpl, 0));
-      this.provideSaveUserCountryUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<SaveUserCountryUseCase>(singletonCImpl, 3));
-      this.provideSaveUserNameAndCountryUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<SaveUserNameAndCountryUseCase>(singletonCImpl, 4));
-      this.provideSetOnboardingCompletedUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<SetOnboardingCompletedUseCase>(singletonCImpl, 5));
-      this.provideIsOnboardingCompletedUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<IsOnboardingCompletedUseCase>(singletonCImpl, 6));
+      this.provideSaveUserNameAndCountryUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<SaveUserNameAndCountryUseCase>(singletonCImpl, 3));
+      this.provideSetOnboardingCompletedUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<SetOnboardingCompletedUseCase>(singletonCImpl, 4));
+      this.provideIsOnboardingCompletedUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<IsOnboardingCompletedUseCase>(singletonCImpl, 5));
     }
 
     @Override
@@ -650,16 +645,13 @@ public final class DaggerOnboardingApplication_HiltComponents_SingletonC {
           case 2: // com.example.onboardingapp.data.local.UserDataStore 
           return (T) AppModule_ProvideUserDataStoreFactory.provideUserDataStore(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 3: // com.example.onboardingapp.domain.usecase.SaveUserCountryUseCase 
-          return (T) UseCaseModule_ProvideSaveUserCountryUseCaseFactory.provideSaveUserCountryUseCase(singletonCImpl.provideUserRepositoryProvider.get());
-
-          case 4: // com.example.onboardingapp.domain.usecase.SaveUserNameAndCountryUseCase 
+          case 3: // com.example.onboardingapp.domain.usecase.SaveUserNameAndCountryUseCase 
           return (T) UseCaseModule_ProvideSaveUserNameAndCountryUseCaseFactory.provideSaveUserNameAndCountryUseCase(singletonCImpl.provideUserRepositoryProvider.get());
 
-          case 5: // com.example.onboardingapp.domain.usecase.SetOnboardingCompletedUseCase 
+          case 4: // com.example.onboardingapp.domain.usecase.SetOnboardingCompletedUseCase 
           return (T) UseCaseModule_ProvideSetOnboardingCompletedUseCaseFactory.provideSetOnboardingCompletedUseCase(singletonCImpl.provideUserRepositoryProvider.get());
 
-          case 6: // com.example.onboardingapp.domain.usecase.IsOnboardingCompletedUseCase 
+          case 5: // com.example.onboardingapp.domain.usecase.IsOnboardingCompletedUseCase 
           return (T) UseCaseModule_ProvideIsOnboardingCompletedUseCaseFactory.provideIsOnboardingCompletedUseCase(singletonCImpl.provideUserRepositoryProvider.get());
 
           default: throw new AssertionError(id);

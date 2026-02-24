@@ -1,6 +1,5 @@
 package com.example.onboardingapp.presentation.home;
 
-import com.example.onboardingapp.domain.usecase.SaveUserCountryUseCase;
 import com.example.onboardingapp.domain.usecase.SaveUserNameAndCountryUseCase;
 import com.example.onboardingapp.domain.usecase.SaveUserNameUseCase;
 import dagger.internal.DaggerGenerated;
@@ -26,33 +25,27 @@ import javax.inject.Provider;
 public final class HomeViewModel_Factory implements Factory<HomeViewModel> {
   private final Provider<SaveUserNameUseCase> saveUserNameUseCaseProvider;
 
-  private final Provider<SaveUserCountryUseCase> saveUserCountryUseCaseProvider;
-
   private final Provider<SaveUserNameAndCountryUseCase> saveUserNameAndCountryUseCaseProvider;
 
   public HomeViewModel_Factory(Provider<SaveUserNameUseCase> saveUserNameUseCaseProvider,
-      Provider<SaveUserCountryUseCase> saveUserCountryUseCaseProvider,
       Provider<SaveUserNameAndCountryUseCase> saveUserNameAndCountryUseCaseProvider) {
     this.saveUserNameUseCaseProvider = saveUserNameUseCaseProvider;
-    this.saveUserCountryUseCaseProvider = saveUserCountryUseCaseProvider;
     this.saveUserNameAndCountryUseCaseProvider = saveUserNameAndCountryUseCaseProvider;
   }
 
   @Override
   public HomeViewModel get() {
-    return newInstance(saveUserNameUseCaseProvider.get(), saveUserCountryUseCaseProvider.get(), saveUserNameAndCountryUseCaseProvider.get());
+    return newInstance(saveUserNameUseCaseProvider.get(), saveUserNameAndCountryUseCaseProvider.get());
   }
 
   public static HomeViewModel_Factory create(
       Provider<SaveUserNameUseCase> saveUserNameUseCaseProvider,
-      Provider<SaveUserCountryUseCase> saveUserCountryUseCaseProvider,
       Provider<SaveUserNameAndCountryUseCase> saveUserNameAndCountryUseCaseProvider) {
-    return new HomeViewModel_Factory(saveUserNameUseCaseProvider, saveUserCountryUseCaseProvider, saveUserNameAndCountryUseCaseProvider);
+    return new HomeViewModel_Factory(saveUserNameUseCaseProvider, saveUserNameAndCountryUseCaseProvider);
   }
 
   public static HomeViewModel newInstance(SaveUserNameUseCase saveUserNameUseCase,
-      SaveUserCountryUseCase saveUserCountryUseCase,
       SaveUserNameAndCountryUseCase saveUserNameAndCountryUseCase) {
-    return new HomeViewModel(saveUserNameUseCase, saveUserCountryUseCase, saveUserNameAndCountryUseCase);
+    return new HomeViewModel(saveUserNameUseCase, saveUserNameAndCountryUseCase);
   }
 }
