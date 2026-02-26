@@ -17,6 +17,7 @@ color teal_200
 color teal_700
 color white
 drawable ai_avatar
+drawable avatar
 drawable ic_speaker
 mipmap ic_launcher
 mipmap ic_launcher_round

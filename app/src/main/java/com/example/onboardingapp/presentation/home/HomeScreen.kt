@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -61,14 +63,12 @@ fun HomeScreen(
                 ConversationMessage(
                     text = "Hi, I'm Emma, your personal AI Tutor. I'm here to help you learn English as fast as possible!",
                     isUser = false,
-                    showAvatar = false
                 )
             )
             conversationMessages.add(
                 ConversationMessage(
                     text = "What is your name?",
                     isUser = false,
-                    showAvatar = true
                 )
             )
         }
@@ -98,14 +98,14 @@ fun HomeScreen(
             ) {
 
                 AsyncImage(
-                    model = R.drawable.ai_avatar,
+                    model = R.drawable.avatar,
                     contentDescription = "AI Tutor Avatar",
                     modifier = Modifier
-                        .size(140.dp)
+                        .size(150.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop,
-                    placeholder = painterResource(R.drawable.ai_avatar),
-                    error = painterResource(R.drawable.ai_avatar)
+                    placeholder = painterResource(R.drawable.avatar),
+                    error = painterResource(R.drawable.avatar)
                 )
             }
 
@@ -127,7 +127,6 @@ fun HomeScreen(
                     } else {
                         AiChatBubble(
                             message = message.text,
-                            showAvatar = message.showAvatar
                         )
                     }
                 }
@@ -218,7 +217,6 @@ fun HomeScreen(
                                 ConversationMessage(
                                     text = currentValue,
                                     isUser = true,
-                                    showAvatar = false
                                 )
                             )
 
@@ -240,7 +238,6 @@ fun HomeScreen(
                                         ConversationMessage(
                                             text = nextQuestion,
                                             isUser = false,
-                                            showAvatar = true
                                         )
                                     )
                                 }
@@ -275,51 +272,46 @@ data class ConversationMessage(
     val id: String = UUID.randomUUID().toString(),
     val text: String,
     val isUser: Boolean,
-    val showAvatar: Boolean
 )
 
 @Composable
+@Preview
 private fun AiChatBubble(
-    message: String,
-    showAvatar: Boolean
+    message: String = "Eslsam Mohamed",
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.wrapContentSize(),
         verticalAlignment = Alignment.Top
     ) {
-        if (showAvatar) {
-            // Small AI avatar icon
+        Column(
+            modifier = Modifier.weight(1f)
+                .background(Color.White, RoundedCornerShape(20.dp))
+        ) {
+                Text(
+                    text = message,
+                    color = Color(0xFF1F2937),
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 22.sp,
+                    modifier = Modifier.padding(16.dp)
+                )
+
+            Spacer(modifier = Modifier.height(8.dp))
             Box(
                 modifier = Modifier
-                    .size(32.dp)
+                    .padding(bottom = 8.dp, start = 8.dp)
+                    .size(24.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFF3B82F6)),
+                    .background(Color(0xFF3B82F6).copy(alpha = 0.2f)),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "🤖",
-                    fontSize = 18.sp
+                Icon(
+                    imageVector = Icons.Default.VolumeUp,
+                    contentDescription = "Play sound",
+                    tint = Color(0xFF3B82F6),
+                    modifier = Modifier.size(14.dp)
                 )
             }
-            Spacer(modifier = Modifier.width(8.dp))
-        } else {
-            Spacer(modifier = Modifier.width(40.dp))
-        }
-
-        Surface(
-            modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(20.dp),
-            color = Color.White,
-            shadowElevation = 2.dp
-        ) {
-            Text(
-                text = message,
-                color = Color(0xFF1F2937),
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Normal,
-                lineHeight = 22.sp,
-                modifier = Modifier.padding(16.dp)
-            )
         }
     }
 }

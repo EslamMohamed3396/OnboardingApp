@@ -1,26 +1,30 @@
 [
     {
-        "merged": "com.example.onboardingapp-debug-60:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.onboardingapp-main-62:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-debug-60:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-main-62:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.example.onboardingapp-debug-60:/drawable_ic_speaker.xml.flat",
-        "source": "com.example.onboardingapp-main-62:/drawable/ic_speaker.xml"
+        "merged": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-debug-60:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-main-62:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "com.example.onboardingapp-debug-60:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.onboardingapp-main-62:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-debug-60:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-main-62:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.onboardingapp-debug-60:/xml_backup_rules.xml.flat",
-        "source": "com.example.onboardingapp-main-62:/xml/backup_rules.xml"
+        "merged": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-debug-60:\\drawable_ic_speaker.xml.flat",
+        "source": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-main-62:\\drawable\\ic_speaker.xml"
     },
     {
-        "merged": "com.example.onboardingapp-debug-60:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.onboardingapp-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-debug-60:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-main-62:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.onboardingapp-debug-60:/drawable_ai_avatar.xml.flat",
-        "source": "com.example.onboardingapp-main-62:/drawable/ai_avatar.xml"
+        "merged": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-debug-60:\\drawable_ai_avatar.xml.flat",
+        "source": "C:\\Users\\DELL\\.gradle\\daemon\\8.5\\com.example.onboardingapp-main-62:\\drawable\\ai_avatar.xml"
+    },
+    {
+        "merged": "com.example.onboardingapp-debug-60:/drawable_avatar.xml.flat",
+        "source": "com.example.onboardingapp-main-62:/drawable/avatar.xml"
     }
 ]
