@@ -1,7 +1,9 @@
 package com.example.onboardingapp.presentation.home
 
+import android.R.attr.text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -98,6 +100,13 @@ fun HomeScreen(
                     ),
                 contentAlignment = Alignment.Center
             ) {
+                Text(
+                    modifier = Modifier
+                        .padding(top = 38.dp, end = 16.dp)
+                        .align(Alignment.TopEnd),
+                    text = "Skip",
+                    color = Color.White.copy(alpha = 0.4f)
+                )
                 AsyncImage(
                     model = R.drawable.avatar,
                     contentDescription = "AI Tutor Avatar",
@@ -201,33 +210,26 @@ private fun AiChatBubble(
     message: String,
 ) {
     Row(
-        modifier = Modifier.wrapContentWidth(),
-        verticalAlignment = Alignment.Top
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.Start
     ) {
         Column(
-            modifier = Modifier
-                .weight(1f)
+            modifier = Modifier.wrapContentWidth()
                 .background(Color.White, RoundedCornerShape(20.dp))
         ) {
-//            Surface(
-//                modifier = Modifier.wrapContentWidth(),
-//                shape = RoundedCornerShape(20.dp),
-//                color = Color.White,
-//                shadowElevation = 2.dp
-//            ) {
+
             Text(
                 text = message,
                 color = Color(0xFF1F2937),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
                 lineHeight = 22.sp,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp).wrapContentWidth()
             )
-            //  }
-            // Spacer(modifier = Modifier.height(8.dp))
             Box(
                 modifier = Modifier
-                    .padding(bottom = 8.dp, start = 4.dp)
+                    .padding(bottom = 8.dp, start = 16.dp)
                     .size(24.dp)
                     .clip(CircleShape)
                     .background(Color(0xFF3B82F6).copy(alpha = 0.2f)),
@@ -287,7 +289,7 @@ private fun ConversationalInput(
 ) {
     Column(
         modifier = Modifier.wrapContentWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.End
     ) {
         Box(
@@ -343,7 +345,7 @@ private fun ConversationalInput(
                         cursorColor = Color.White
                     ),
                     modifier = Modifier
-                        .weight(1f)
+                        .wrapContentWidth()
                         .heightIn(min = 36.dp),
                     singleLine = true,
                     maxLines = 1
