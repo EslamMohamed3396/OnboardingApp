@@ -604,7 +604,7 @@ public final class DaggerOnboardingApplication_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectOnboardingApplication(OnboardingApplication onboardingApplication) {
+    public void injectOnboardingApplication(OnboardingApplication arg0) {
     }
 
     @Override

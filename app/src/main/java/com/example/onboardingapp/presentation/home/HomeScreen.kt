@@ -39,6 +39,7 @@ fun HomeScreen(
 
     var name by remember { mutableStateOf("") }
     var country by remember { mutableStateOf("") }
+    var showInput by remember { mutableStateOf(true) }
 
     val conversationMessages = remember { mutableStateListOf<ConversationMessage>() }
 
@@ -50,6 +51,7 @@ fun HomeScreen(
     val isLastStep = uiState.currentStep >= viewModel.aiOnboardingSteps.size - 1
 
     val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(conversationMessages.size) {
         if (conversationMessages.isNotEmpty()) {
@@ -85,7 +87,7 @@ fun HomeScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.35f)
+                    .weight(0.15f)
                     .background(
                         Brush.verticalGradient(
                             colors = listOf(
@@ -96,12 +98,11 @@ fun HomeScreen(
                     ),
                 contentAlignment = Alignment.Center
             ) {
-
                 AsyncImage(
                     model = R.drawable.avatar,
                     contentDescription = "AI Tutor Avatar",
                     modifier = Modifier
-                        .size(150.dp)
+                        .size(140.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(R.drawable.avatar),
@@ -131,47 +132,11 @@ fun HomeScreen(
                     }
                 }
 
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(0.25f)
-                    .padding(horizontal = 24.dp)
-                    .padding(bottom = 32.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .clip(RoundedCornerShape(28.dp))
-                        .background(
-                            Brush.horizontalGradient(
-                                colors = listOf(
-                                    Color(0xFF3B82F6),
-                                    Color(0xFF2563EB)
-                                )
-                            )
-                        ),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 20.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = currentStepData.prefix,
-                            color = Color.White,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                        Spacer(modifier = Modifier.width(8.dp))
-
-                        TextField(
+                if (showInput) {
+                    item {
+                        ConversationalInput(
+                            prefix = currentStepData.prefix,
+                            placeholder = currentStepData.placeholder,
                             value = currentValue,
                             onValueChange = {
                                 if (uiState.currentStep == 0) {
@@ -180,88 +145,45 @@ fun HomeScreen(
                                     country = it
                                 }
                             },
-                            placeholder = {
-                                Text(
-                                    text = currentStepData.placeholder,
-                                    color = Color.White.copy(alpha = 0.7f),
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            },
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                focusedPlaceholderColor = Color.White.copy(alpha = 0.7f),
-                                unfocusedPlaceholderColor = Color.White.copy(alpha = 0.7f),
-                                focusedTextColor = Color.White,
-                                unfocusedTextColor = Color.White,
-                                cursorColor = Color.White
-                            ),
-                            modifier = Modifier
-                                .weight(1f)
-                                .heightIn(min = 36.dp),
-                            singleLine = true,
-                            maxLines = 1
-                        )
-                    }
-                }
-
-                val scope = rememberCoroutineScope()
-                Button(
-                    onClick = {
-                        if (currentValue.isNotBlank()) {
-                            // Add user's answer to conversation
-                            conversationMessages.add(
-                                ConversationMessage(
-                                    text = currentValue,
-                                    isUser = true,
-                                )
-                            )
-
-                            if (isLastStep) {
-                                viewModel.saveNameAndCountry(name, country)
-                            } else {
-                                if (uiState.currentStep == 0) {
-                                    viewModel.saveName(name)
-                                }
-                                viewModel.setCurrentStep(uiState.currentStep + 1)
-
-                                scope.launch {
-                                    delay(500)
-                                    val nextQuestion =
-                                        viewModel.aiOnboardingSteps.getOrElse(uiState.currentStep + 1) {
-                                            viewModel.aiOnboardingSteps.last()
-                                        }.question
+                            onConfirm = {
+                                if (currentValue.isNotBlank()) {
+                                    val fullMessage = "${currentStepData.prefix} $currentValue"
                                     conversationMessages.add(
                                         ConversationMessage(
-                                            text = nextQuestion,
-                                            isUser = false,
+                                            text = fullMessage,
+                                            isUser = true,
                                         )
                                     )
+                                    showInput = false
+
+                                    if (isLastStep) {
+                                        viewModel.saveNameAndCountry(name, country)
+                                    } else {
+                                        if (uiState.currentStep == 0) {
+                                            viewModel.saveName(name)
+                                        }
+                                        viewModel.setCurrentStep(uiState.currentStep + 1)
+
+                                        scope.launch {
+                                            delay(500)
+                                            val nextQuestion =
+                                                viewModel.aiOnboardingSteps.getOrElse(uiState.currentStep + 1) {
+                                                    viewModel.aiOnboardingSteps.last()
+                                                }.question
+                                            conversationMessages.add(
+                                                ConversationMessage(
+                                                    text = nextQuestion,
+                                                    isUser = false,
+                                                )
+                                            )
+                                            showInput = true
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    enabled = currentValue.isNotBlank(),
-                    shape = RoundedCornerShape(28.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFDBEAFE),
-                        disabledContainerColor = Color(0xFFE5E7EB)
-                    )
-                ) {
-                    Text(
-                        text = if (isLastStep) "Confirm" else "Next",
-                        color = if (currentValue.isNotBlank()) Color(0xFF1E40AF) else Color(
-                            0xFF9CA3AF
-                        ),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                            },
+                            isEnabled = currentValue.isNotBlank()
+                        )
+                    }
                 }
             }
         }
@@ -275,31 +197,37 @@ data class ConversationMessage(
 )
 
 @Composable
-@Preview
 private fun AiChatBubble(
-    message: String = "Eslsam Mohamed",
+    message: String,
 ) {
     Row(
-        modifier = Modifier.wrapContentSize(),
+        modifier = Modifier.wrapContentWidth(),
         verticalAlignment = Alignment.Top
     ) {
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
                 .background(Color.White, RoundedCornerShape(20.dp))
         ) {
-                Text(
-                    text = message,
-                    color = Color(0xFF1F2937),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Normal,
-                    lineHeight = 22.sp,
-                    modifier = Modifier.padding(16.dp)
-                )
-
-            Spacer(modifier = Modifier.height(8.dp))
+//            Surface(
+//                modifier = Modifier.wrapContentWidth(),
+//                shape = RoundedCornerShape(20.dp),
+//                color = Color.White,
+//                shadowElevation = 2.dp
+//            ) {
+            Text(
+                text = message,
+                color = Color(0xFF1F2937),
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 22.sp,
+                modifier = Modifier.padding(16.dp)
+            )
+            //  }
+            // Spacer(modifier = Modifier.height(8.dp))
             Box(
                 modifier = Modifier
-                    .padding(bottom = 8.dp, start = 8.dp)
+                    .padding(bottom = 8.dp, start = 4.dp)
                     .size(24.dp)
                     .clip(CircleShape)
                     .background(Color(0xFF3B82F6).copy(alpha = 0.2f)),
@@ -314,6 +242,12 @@ private fun AiChatBubble(
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun AiChatBubblePreview() {
+    AiChatBubble(message = "Eslam Mohamed")
 }
 
 @Composable
@@ -336,6 +270,104 @@ private fun UserChatBubble(
                 fontWeight = FontWeight.Medium,
                 lineHeight = 22.sp,
                 modifier = Modifier.padding(16.dp)
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ConversationalInput(
+    prefix: String,
+    placeholder: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    onConfirm: () -> Unit,
+    isEnabled: Boolean
+) {
+    Column(
+        modifier = Modifier.wrapContentWidth(),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.End
+    ) {
+        Box(
+            modifier = Modifier
+                .wrapContentWidth()
+                .height(56.dp)
+                .clip(RoundedCornerShape(28.dp))
+                .background(
+                    Brush.horizontalGradient(
+                        colors = listOf(
+                            Color(0xFF3B82F6),
+                            Color(0xFF2563EB)
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Row(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .padding(horizontal = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = prefix,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                TextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    placeholder = {
+                        Text(
+                            text = placeholder,
+                            color = Color.White.copy(alpha = 0.7f),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedPlaceholderColor = Color.White.copy(alpha = 0.7f),
+                        unfocusedPlaceholderColor = Color.White.copy(alpha = 0.7f),
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        cursorColor = Color.White
+                    ),
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 36.dp),
+                    singleLine = true,
+                    maxLines = 1
+                )
+            }
+        }
+
+        Button(
+            onClick = onConfirm,
+            modifier = Modifier
+                .wrapContentWidth()
+                .height(56.dp),
+            enabled = isEnabled,
+            shape = RoundedCornerShape(28.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFDBEAFE),
+                disabledContainerColor = Color(0xFFE5E7EB)
+            )
+        ) {
+            Text(
+                text = "Confirm",
+                color = if (isEnabled) Color(0xFF1E40AF) else Color(0xFF9CA3AF),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold
             )
         }
     }
